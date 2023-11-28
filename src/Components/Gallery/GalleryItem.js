@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-function GalleryItem(props) {
-    let [view, setView] = useState(false)
+function GalleryItem({ item }) {
+    const [view, setView] = useState(false)
 
     const simpleStyle = {
     'width': '25vw',
@@ -15,7 +16,7 @@ const detailStyle = {
     'height': '20vh',
     'border': '1px solid black',
     'margin': '2px',
-    'backgroundImage': `url(${props.item.artworkUrl100})`,
+    'backgroundImage': `url(${item.artworkUrl100})`,
     'backgroundRepeat': 'no-repeat',
     'backgroundSize': 'cover',
     'color': 'yellow'
@@ -24,8 +25,8 @@ const detailStyle = {
     const simpleView = () => {
         return (
             <div style ={simpleStyle}>
-                <h3>{props.item.trackName}</h3>
-                <h4>{props.item.collectionName}</h4>
+                <h3>{item.trackName}</h3>
+                <h4>{item.collectionName}</h4>
             </div>
         )
     }
@@ -33,10 +34,19 @@ const detailStyle = {
     const detailView = () => {
         return (
             <div style={detailStyle}>
-                <h2>{props.item.trackName}</h2>
-                <h3>{props.item.collectionName}</h3>
-                <h4>{props.item.primaryGenreName}</h4>
-                <h4>{props.item.releaseDate}</h4>
+                <h2>{item.trackName}</h2>
+                <h3>
+                    <Link to={`/artist/${item.artistId}`}>
+                    {item.artistName}
+                    </Link>
+                </h3>
+                <h3>
+                    <Link to={`/album/${item.collectionId}`}>
+                    {item.collectionName}
+                    </Link>
+                </h3>
+                <h4>{item.primaryGenreName}</h4>
+                <h4>{item.releaseDate}</h4>
             </div>
         )
     }
